@@ -48,7 +48,8 @@ class UI extends React.Component<IUIProps> {
                 <progress className="day-progress" value={this.getDayProgress()} max="1"/>
 
                 <div>
-                    Moneh: ${this.props.game.money.toFixed(2)}
+                    <div>Wage: $15/hour</div>
+                    <div>Moneh: ${this.props.game.money.toFixed(2)}</div>
                 </div>
             </div>
         )
