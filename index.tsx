@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom';
 import Game from './src/game';
 
 const game = new Game();
+window['game'] = game;
 
 interface IUIProps {
     game: Game;
@@ -40,16 +41,26 @@ class UI extends React.Component<IUIProps> {
             hour: '2-digit',
             minute: '2-digit'
         }
+        const game = this.props.game;
         return (
             <div>
                 <div>
-                    Current date: {new Date(this.props.game.date).toLocaleString(undefined, dateOpts)}
+                    Current date: {new Date(game.date).toLocaleString(undefined, dateOpts)}
                 </div>
                 <progress className="day-progress" value={this.getDayProgress()} max="1"/>
 
                 <div>
-                    <div>Wage: $15/hour</div>
-                    <div>Moneh: ${this.props.game.money.toFixed(2)}</div>
+                    <select onChange={(e) => {console.log(e); game.country = e.target.value}}>
+                        {
+                            game.wage.getWages().map((country) => {
+                                return (<option value={country}>{country}</option>);
+                            })
+                        }
+                    </select>
+                </div>
+                <div>
+                    <div>Wage: ${game.wage.getWage(game.country)}/hour</div>
+                    <div>Moneh: ${game.money.toFixed(2)}</div>
                 </div>
             </div>
         )

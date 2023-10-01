@@ -1,8 +1,14 @@
+import Wage from "./wage";
+
 class Game {
     date: number = Date.now();
     money: number = 0;
+    wage: Wage;
+
+    country = "United States";
 
     constructor() {
+        this.wage = new Wage();
     }
 
     update(){
@@ -11,7 +17,7 @@ class Game {
 
         this.date += timeDelta;
 
-        const hourlyWage = 15;
+        const hourlyWage = this.wage.getWage(this.country);
         const WORKING_HOURS = 8;
 
         this.money += (timeDelta / HOUR) * (WORKING_HOURS / 24) * hourlyWage 
